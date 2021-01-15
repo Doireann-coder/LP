@@ -22,7 +22,7 @@ const allSections = document.querySelectorAll('section');
 const navig = document.querySelector('ul'); 
 navig.setAttribute('style', 'background: rgb(136,203,171); border-bottom: 1px solid #cc1; font-family: Sans-Serif; font-size: 3em; color: white;');
 
-document.querySelector('.your-active-class').style.backgroundColor= 'blue';
+
 
 
 /**
@@ -59,7 +59,7 @@ function options(){
   const content = oneSection.getAttribute('data-nav'); 
   const items = document.createElement('li');     
   const link = document.createElement('a');   
-  link.setAttribute('href', #${oneSection.id});   
+  link.setAttribute('href', `#${oneSection.id}`);   
   link.textContent = content; 
   items.appendChild(link); 
   navig.appendChild(items);  
@@ -75,9 +75,13 @@ function options(){
 function activeSection(){
 for(const section of allSections){
 const view = section.getBoundingClientRect();
-  if(view.top>=100 && view.left>=100){
-  section.classList.add('your-active-class');
-}else{section.classList.remove('your-active-class');}
+  if(view.top>=0 && view.left>=0){
+    
+  section.classList.add("your-active-class");
+  document.querySelector(".your-active-class").style.backgroundColor = 'blue';
+  console.log("a bit of added class")
+}else{section.classList.remove("your-active-class")
+console.log("a little less classy");}
     }
 };
 
@@ -87,7 +91,20 @@ document.addEventListener('scroll', function(){
 
 
 // Scroll to anchor ID using scrollTO event
+function clickTheMenu(){ 
+const links = navig.querySelectorAll('a'); 
 
+  for(let k=0; k<links.length; k++){
+    const link = links[k];
+    const toSection = allSections[k];
+    const sectionId = toSection.id;
+    
+     link.addEventListener('click', function () {
+        toSection.scrollIntoView();
+        console.log(link.textContent + " was clicked");
+      })}}; 
+
+          clickTheMenu();
 
 /**
  * End Main Functions
