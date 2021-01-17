@@ -3,6 +3,7 @@ const allSections = document.querySelectorAll('section');
 const navig = document.querySelector('ul');
 navig.setAttribute('style', 'font-size: 3em;');
 
+
 /**
  * End Global Variables
  * Start Helper Function
@@ -28,10 +29,8 @@ let options = () => {
         link.textContent = content;
         items.appendChild(link);
         navig.appendChild(items);
-        link.style.color = "#fff";
-        link.style.textDecoration = "none";
-        link.style.paddingRight = "1vw";
-        link.style.fontFamily = "'Oxygen', Sans-Serif";
+        link.classList.add('linkStyle')
+
     }
 }
 
@@ -41,21 +40,38 @@ options();
 
 /* Add class 'active' to section when near top of viewport*/
 let activeSection = () => {
-    for (const section of allSections) {
+    for (let m =0; m < allSections.length; m++) {
+        const section = allSections[m];
+        const links = document.querySelectorAll('li');
+        const selectedLink = links[m];
+        
         const view = section.getBoundingClientRect();
-        if (view.top >= 0 && view.left >= 0) {
+        if (view.top <=150 && view.bottom >= 150) {
             section.classList.add("your-active-class");
-            console.log("a bit of added class")
+            selectedLink.classList.add("your-active-class");
+            console.log("a bit of added class");
         } else {
-            section.classList.remove("your-active-class")
+            section.classList.remove("your-active-class");
+            selectedLink.classList.remove("your-active-class");
             console.log("a little less classy");
         }
     }
 }
+
 /*event listener added here*/
 document.addEventListener('scroll', function() {
     activeSection();
 })
+
+document.addEventListener('click',function(){
+    activeSection();
+})
+
+
+
+    
+
+
 
 
 /*Selected section from Navigation bar is scrolled into view*/
@@ -89,7 +105,7 @@ window.addEventListener('scroll', function() {
     }
     timer = setTimeout(function() {
         navig.style.display = "none";
-    }, 2000);
+    }, 5000);
 });
 /*Navigation bar reappears when user starts scrolling again*/
 window.onscroll = function() {
